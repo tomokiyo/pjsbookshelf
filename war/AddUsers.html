@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>ユーザの一括登録</title>
+<p>登録するユーザ情報の入ったCSVファイルを指定してください。</p>
+
+<p>CSVファイルの例:
+<blockquote>
+<pre>
+1002,保護者,山田 太郎,ヤマダ タロウ,Yamada Taro
+1002,保護者,山田 花子,ヤマダ ハナコ,Yamada Hanako
+1002,小3,山田 一郎,ヤマダ イチロウ,Yamada Ichiro
+1002,年長,山田 二郎,ヤマダ ジロウ,Yamada Jiro
+1003,保護者,田中 茂,タナカ シゲル,Tanaka Shigeru
+1003,保護者,田中 直美,タナカ ナオミ,Tanaka Naomi
+1003,中2,田中 葵,タナカ アオイ,Tanaka Aoi
+</pre>
+</blockquote>
+</p>
+
+<form enctype='multipart/form-data' method='post' action='librarymanager/upload'>
+<input type='file' name='user-list'><br/>
+<input type='submit' value='送信'>
+</form>
+
+</body></html>

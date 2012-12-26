@@ -1,0 +1,11 @@
+- Google Web Toolkit
+- iText
+- Jetty
+- Open CSV
+- Apache Derby
+
+commons-codec-1.4.jar
+Amazon REST の Base 64 encoding に使用。
+
+http://commons.apache.org/fileupload/
+

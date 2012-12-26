@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>LibraryManager.html</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>DBLookup</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.DBLookupServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DBLookup</servlet-name>
+    <url-pattern>/librarymanager/dbLookupService</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AmazonRPC</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.AmazonLookupServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>AmazonRPC</servlet-name>
+    <url-pattern>/librarymanager/amazonRPCService</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>FileDownloader</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.FileDownloaderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FileDownloader</servlet-name>
+    <url-pattern>/librarymanager/download</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>FileUploader</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.FileUploaderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FileUploader</servlet-name>
+    <url-pattern>/librarymanager/upload</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 進級処理専門サーブレット(暫定) -->
+  <!-- App Engine版では自動的に行うこと -->
+  <servlet>
+    <servlet-name>Promotion</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.ShinkyuuShoriServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Promotion</servlet-name>
+    <url-pattern>/librarymanager/AprilAprilApril</url-pattern>
+  </servlet-mapping>
+  
+
+  <servlet>
+    <servlet-name>KakasiRPC</servlet-name>
+    <servlet-class>org.tomokiyo.pjs.server.YahooFuriganaService</servlet-class>
+    <!-- <servlet-class>org.tomokiyo.pjs.server.KakasiServiceImpl</servlet-class> -->
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>KakasiRPC</servlet-name>
+    <url-pattern>/librarymanager/kakasiService</url-pattern>
+  </servlet-mapping>
+  
+<!--   <resource-ref> -->
+<!--     <res-ref-name>jdbc/pjsDB</res-ref-name> -->
+<!--     <res-type>javax.sql.DataSource</res-type> -->
+<!--     <res-auth>Container</res-auth> -->
+<!--   </resource-ref> -->
+</web-app>

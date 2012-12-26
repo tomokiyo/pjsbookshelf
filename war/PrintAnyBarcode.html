@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style type="text/css" media="all">
+.ime-disabled {
+  ime-mode: disabled;
+  -ms-ime-mode: disabled;
+}
+</style>
+<title>任意のバーコードの印刷</title>
+印刷する書籍の番号をすべて入力してください。(例: A802)<br>
+
+<form action="librarymanager/download?type=book-barcode-list" method="POST">
+  <textarea class="ime-disabled" name="ids" cols="50" rows="20"></textarea><br>
+  <input type="Submit" value="Submit" />
+  <input type="Reset" value="Reset" />
+</form>
+</body></html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" ?>
+<ItemLookupResponse xmlns="http://webservices.amazon.com/AWSECommerceService/2008-04-07">
+  <OperationRequest>
+    <HTTPHeaders>
+      <Header Name="UserAgent" Value="Wget/1.10.2">
+      </Header>
+    </HTTPHeaders>
+    <RequestId>99c2cc78-caa7-4c76-9e5d-eeb557a39e5d</RequestId>
+    <Arguments>
+      <Argument Name="Service" Value="AWSECommerceService">
+      </Argument>
+      <Argument Name="Operation" Value="ItemLookup">
+      </Argument>
+      <Argument Name="ItemPage" Value="1">
+      </Argument>
+      <Argument Name="Version" Value="2008-04-07">
+      </Argument>
+      <Argument Name="SubscriptionId" Value="XXXX">
+      </Argument>
+      <Argument Name="SearchIndex" Value="Books">
+      </Argument>
+      <Argument Name="ContentType" Value="text/xml">
+      </Argument>
+      <Argument Name="ItemId" Value="9784415030623">
+      </Argument>
+      <Argument Name="IdType" Value="ISBN">
+      </Argument>
+      <Argument Name="ResponseGroup" Value="Request,Small,ItemAttributes,Images">
+      </Argument>
+    </Arguments>
+    <RequestProcessingTime>0.0759430000000000</RequestProcessingTime>
+  </OperationRequest>
+  <Items>
+    <Request>
+      <IsValid>True</IsValid>
+      <ItemLookupRequest>
+	<Condition>New</Condition>
+	<DeliveryMethod>Ship</DeliveryMethod>
+	<IdType>ISBN</IdType>
+	<MerchantId>Amazon</MerchantId>
+	<OfferPage>1</OfferPage>
+	<ItemId>9784415030623</ItemId>
+	<ResponseGroup>Request</ResponseGroup>
+	<ResponseGroup>Small</ResponseGroup>
+	<ResponseGroup>ItemAttributes</ResponseGroup>
+	<ResponseGroup>Images</ResponseGroup>
+	<ReviewPage>1</ReviewPage>
+	<ReviewSort>-SubmissionDate</ReviewSort>
+	<SearchIndex>Books</SearchIndex>
+	<VariationPage>All</VariationPage>
+      </ItemLookupRequest>
+    </Request>
+    <Item>
+      <ASIN>4415030629</ASIN>
+      <DetailPageURL>http://www.amazon.co.jp/gp/redirect.html%3FASIN=4415030629%26tag=ws%26lcode=xm2%26cID=2025%26ccmID=165953%26location=/o/ASIN/4415030629%253FSubscriptionId=XXXX</DetailPageURL>
+      <SmallImage>
+	<URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL75_.jpg</URL>
+	<Height Units="pixels">75</Height>
+	<Width Units="pixels">62</Width>
+      </SmallImage>
+      <MediumImage>
+	<URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL160_.jpg</URL>
+	<Height Units="pixels">160</Height>
+	<Width Units="pixels">132</Width>
+      </MediumImage>
+      <LargeImage>
+	<URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL.jpg</URL>
+	<Height Units="pixels">500</Height>
+	<Width Units="pixels">414</Width>
+      </LargeImage>
+      <ImageSets>
+	<ImageSet Category="primary">
+	  <SwatchImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL30_.jpg</URL>
+	    <Height Units="pixels">30</Height>
+	    <Width Units="pixels">25</Width>
+	  </SwatchImage>
+	  <SmallImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL75_.jpg</URL>
+	    <Height Units="pixels">75</Height>
+	    <Width Units="pixels">62</Width>
+	  </SmallImage>
+	  <ThumbnailImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL75_.jpg</URL>
+	    <Height Units="pixels">75</Height>
+	    <Width Units="pixels">62</Width>
+	  </ThumbnailImage>
+	  <TinyImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL110_.jpg</URL>
+	    <Height Units="pixels">110</Height>
+	    <Width Units="pixels">91</Width>
+	  </TinyImage>
+	  <MediumImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL._SL160_.jpg</URL>
+	    <Height Units="pixels">160</Height>
+	    <Width Units="pixels">132</Width>
+	  </MediumImage>
+	  <LargeImage>
+	    <URL>http://ecx.images-amazon.com/images/I/61ZJ2T9NDPL.jpg</URL>
+	    <Height Units="pixels">500</Height>
+	    <Width Units="pixels">414</Width>
+	  </LargeImage>
+	</ImageSet>
+      </ImageSets>
+      <ItemAttributes>
+	<Author>千葉 幹夫</Author>
+	<Author>久保 純子</Author>
+	<Binding>楽譜</Binding>
+	<EAN>9784415030623</EAN>
+	<ISBN>4415030629</ISBN>
+	<Label>成美堂出版</Label>
+	<ListPrice>
+	  <Amount>1890</Amount>
+	  <CurrencyCode>JPY</CurrencyCode>
+	  <FormattedPrice>￥ 1,890</FormattedPrice>
+	</ListPrice>
+	<Manufacturer>成美堂出版</Manufacturer>
+	<NumberOfPages>127</NumberOfPages>
+	<PackageDimensions>
+	  <Height Units="hundredths-inches">63</Height>
+	  <Length Units="hundredths-inches">1016</Length>
+	  <Weight Units="hundredths-pounds">132</Weight>
+	  <Width Units="hundredths-inches">827</Width>
+	</PackageDimensions>
+	<ProductGroup>Book</ProductGroup>
+	<ProductTypeName>ABIS_BOOK</ProductTypeName>
+	<PublicationDate>2005-08</PublicationDate>
+	<Publisher>成美堂出版</Publisher>
+	<Studio>成美堂出版</Studio>
+	<Title>CDできくよみきかせおはなし絵本〈1〉</Title>
+      </ItemAttributes>
+    </Item>
+  </Items>
+</ItemLookupResponse>

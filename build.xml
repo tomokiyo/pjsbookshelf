@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="LibraryManager" default="build" basedir=".">
+
+  <!-- To access environment variable by ${env.CLASSPATH}, etc. -->
+  <property environment="env"/>
+
+  <!-- Configure path to GWT SDK -->
+  <property name="gwt.sdk" location="${user.home}/sdk/gwt-linux-1.7.0" />
+  <property name="db.dir" value="${basedir}/../PJS-DB"/>
+
+  <path id="project.class.path">
+    <pathelement location="war/WEB-INF/classes"/>
+    <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+    <!-- Add any additional non-server libs (such as JUnit) -->
+    <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+  </path>
+
+  <target name="showclasspath">
+    <echo message="${toString:project.class.path}"/>
+  </target>
+
+  <target name="libs" description="Copy libs to WEB-INF/lib">
+    <mkdir dir="war/WEB-INF/lib" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <!-- Add any additional server libs that need to be copied -->
+    <copy todir="war/WEB-INF/lib">
+      <fileset dir="lib" includes="**/*.jar"/>
+      <fileset dir="external/commons-logging-1.1.1" includes="commons-logging-1.1.1.jar"/>
+      <fileset file="${user.home}/sdk/google-gson-1.4/gson-1.4.jar"/>
+    </copy>
+  </target>
+
+  <target name="javac" depends="libs" description="Compile java source">
+    <mkdir dir="war/WEB-INF/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8"
+        destdir="war/WEB-INF/classes"
+        source="1.5" target="1.5" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+  <target name="gwtc" depends="javac" description="GWT compile to JavaScript">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx512M"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="org.tomokiyo.pjs.LibraryManager"/>
+    </java>
+  </target>
+
+  <target name="hosted" depends="javac" description="Run hosted mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.HostedMode">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <jvmarg value="-Xmx256M"/>
+      <arg value="-startupUrl"/>
+      <arg value="LibraryManager.html"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg value="org.tomokiyo.pjs.LibraryManager"/>
+      <sysproperty key="derby.system.home" value="${db.dir}"/>
+    </java>
+  </target>
+
+  <target name="test" depends="javac">
+    <junit printsummary="yes" haltonfailure="yes" haltonerror="yes" showoutput="yes">
+      <jvmarg value="-Xmx512M"/>
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+      </classpath>
+      <formatter type="plain" usefile="no"/>
+      <batchtest fork="yes">
+	<fileset dir="src">
+	  <include name="org/tomokiyo/pjs/TestPackage.java" />
+	</fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="build" depends="gwtc" description="Build this project" />
+
+  <target name="war" depends="build" description="Create a war file">
+    <zip destfile="LibraryManager.war" basedir="war"/>
+  </target>
+
+  <target name="dist-usb" depends="war"
+	  description="Copy war file to USB drive"> 
+    <tstamp>
+      <format property="ts" pattern="yyyy-MM-dd"/>
+    </tstamp>
+    <property name="usbdir" value="/media/Lexar"/>
+    <copy file="${ant.project.name}.war" tofile="${usbdir}/${ant.project.name}-${ts}.war"/>
+  </target>
+  
+  <target name="clean" description="Cleans this project">
+    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="war/WEB-INF/lib" failonerror="false" />
+    <delete dir="war/librarymanager" failonerror="false" />
+    <delete file="derby.log"/>
+    <delete>
+      <fileset dir="." includes="hs_err_pid*.log"/>
+    </delete>
+  </target>
+
+  <target name="distclean" depends="clean">
+    <delete file="LibraryManager.war"/>
+  </target>
+</project>
