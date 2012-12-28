@@ -32,6 +32,8 @@ import org.apache.commons.codec.binary.Base64;
  *
  * http://docs.amazonwebservices.com/AWSEcommerceService/4-0/ApiReference/ItemSearchOperation.html#SampleRequest
  *
+ * http://aws.amazon.com/code/Product-Advertising-API/2478
+ *
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public class AmazonLookupServiceImpl extends RemoteServiceServlet implements AmazonLookupService {
@@ -127,7 +129,7 @@ public class AmazonLookupServiceImpl extends RemoteServiceServlet implements Ama
     try {
       final byte[] data = stringToSign.getBytes("UTF-8");
       final byte[] rawHmac = mac.doFinal(data);
-      return new String(new Base64(0).encode(rawHmac));
+      return new String(new Base64().encodeBase64(rawHmac));
     } catch (UnsupportedEncodingException e) {
       throw new IllegalStateException("UTF-8" + " is unsupported!", e);
     }
