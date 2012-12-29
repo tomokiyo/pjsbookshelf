@@ -39,9 +39,6 @@ public class LibraryManager implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-    // Preload the sound data.
-    SoundUtil.preload();
-
     final TabPanel tabs = new TabPanel();
     tabs.add(new KashidashiPanel(), "貸出");
     tabs.add(new HenkyakuPanel(), "返却");

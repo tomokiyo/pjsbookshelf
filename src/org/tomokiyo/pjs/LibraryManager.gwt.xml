@@ -12,6 +12,8 @@
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
+  <inherits name="com.google.gwt.resources.Resources" />
+
 <!--   <stylesheet src='LibraryManager.css'/> -->
 
   <!-- Specify the app entry point class.                         -->

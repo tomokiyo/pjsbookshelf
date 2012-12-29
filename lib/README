@@ -9,3 +9,4 @@ Amazon REST の Base 64 encoding に使用。
 
 http://commons.apache.org/fileupload/
 
+commons-logging-1.1.1.jar: Spring framework から使われているため
