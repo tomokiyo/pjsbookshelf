@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="LibraryManager" default="build" basedir=".">
-
-  <!-- To access environment variable by ${env.CLASSPATH}, etc. -->
-  <property environment="env"/>
+  <!-- Arguments to gwtc and devmode targets -->
+  <property name="gwt.args" value="" />
 
   <!-- Configure path to GWT SDK -->
   <property name="gwt.sdk" location="${user.home}/sdk/gwt-2.5.0" />
@@ -11,6 +10,8 @@
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
     <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar" />
+    <pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar" />
     <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
     <!-- Add any additional non-server libs (such as JUnit) -->
     <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
@@ -23,6 +24,7 @@
   <target name="libs" description="Copy libs to WEB-INF/lib">
     <mkdir dir="war/WEB-INF/lib" />
     <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
     <!-- Add any additional server libs that need to be copied -->
     <copy todir="war/WEB-INF/lib">
       <fileset dir="lib" includes="**/*.jar"/>
@@ -30,7 +32,7 @@
     </copy>
   </target>
 
-  <target name="javac" depends="libs" description="Compile java source">
+  <target name="javac" depends="libs" description="Compile java source to bytecode">
     <mkdir dir="war/WEB-INF/classes"/>
     <javac srcdir="src" includes="**" encoding="utf-8"
         destdir="war/WEB-INF/classes"
@@ -43,7 +45,7 @@
     </copy>
   </target>
 
-  <target name="gwtc" depends="javac" description="GWT compile to JavaScript">
+  <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
     <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
       <classpath>
         <pathelement location="src"/>
@@ -51,13 +53,16 @@
       </classpath>
       <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
       <jvmarg value="-Xmx512M"/>
+      <arg line="-war"/>
+      <arg value="war"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
       <arg value="org.tomokiyo.pjs.LibraryManager"/>
     </java>
   </target>
 
-  <target name="hosted" depends="javac" description="Run hosted mode">
-    <java failonerror="true" fork="true" classname="com.google.gwt.dev.HostedMode">
+  <target name="devmode" depends="javac" description="Run development mode">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
       <classpath>
         <pathelement location="src"/>
         <path refid="project.class.path"/>
@@ -65,7 +70,10 @@
       <jvmarg value="-Xmx256M"/>
       <arg value="-startupUrl"/>
       <arg value="LibraryManager.html"/>
+      <arg line="-war"/>
+      <arg value="war"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="${gwt.args}"/>
       <arg value="org.tomokiyo.pjs.LibraryManager"/>
       <sysproperty key="derby.system.home" value="${db.dir}"/>
     </java>
@@ -81,11 +89,13 @@
       <formatter type="plain" usefile="no"/>
       <batchtest fork="yes">
 	<fileset dir="src">
-	  <include name="org/tomokiyo/pjs/TestPackage.java" />
+          <include name="org/tomokiyo/pjs/TestPackage.java" />
 	</fileset>
       </batchtest>
     </junit>
   </target>
+  
+  <target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
 
   <target name="build" depends="gwtc" description="Build this project" />
 
@@ -105,7 +115,8 @@
   <target name="clean" description="Cleans this project">
     <delete dir="war/WEB-INF/classes" failonerror="false" />
     <delete dir="war/WEB-INF/lib" failonerror="false" />
-    <delete dir="war/librarymanager" failonerror="false" />
+    <delete dir="war/WEB-INF/deploy" failonerror="false" />
+    <delete dir="gwt-unitCache" failonerror="false" />
     <delete file="derby.log"/>
     <delete>
       <fileset dir="." includes="hs_err_pid*.log"/>
