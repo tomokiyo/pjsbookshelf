@@ -1,0 +1,11 @@
+.personInfo {
+  padding: 4px;
+  background-color: #FFFFFF;
+}
+
+/* disable IME in barcode input dialog boxes, etc. */
+/* 注意: active, inactiveはLinuxのFirefox3では無効 */
+.imeDisabled {
+  ime-mode: disabled;
+  -ms-ime-mode: disabled;
+}

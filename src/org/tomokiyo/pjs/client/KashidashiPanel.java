@@ -15,6 +15,10 @@ import java.util.List;
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public class KashidashiPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  static {
+    Resources.INSTANCE.css().ensureInjected();
+  }
+
   static public final String SUBMIT_CODE = "<<Submit>>";
   static public final String CANCEL_CODE = "<<Cancel>>";
   
@@ -94,7 +98,7 @@ public class KashidashiPanel extends Composite implements LibraryManager.Abstrac
     
     inputBox.setHeight("100%");
     inputBox.addChangeListener(new MyChangeListener());
-    inputBox.addStyleName("ime-disabled");
+    inputBox.addStyleName(Resources.INSTANCE.css().imeDisabled());
     
     // You can use the CellFormatter to affect the layout of the grid's cells.
     // g.getCellFormatter().setWidth(0, 2, "256px");
@@ -290,9 +294,11 @@ public class KashidashiPanel extends Composite implements LibraryManager.Abstrac
   static private final class PersonInfoPanel extends Composite {
     private final Grid grid = new Grid(2, 2);
     private PersonRecord record;
-    
+    static {
+      Resources.INSTANCE.css().ensureInjected();
+    }
     public PersonInfoPanel() {
-      grid.setStyleName("myapp-PersonInfo");
+      grid.setStyleName(Resources.INSTANCE.css().personInfo());
       grid.setWidth("60%");
       initWidget(grid);
       reset();

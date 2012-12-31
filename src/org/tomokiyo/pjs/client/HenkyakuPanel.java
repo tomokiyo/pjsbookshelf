@@ -9,6 +9,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public class HenkyakuPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  static {
+    Resources.INSTANCE.css().ensureInjected();
+  }
+
   private final Label topLabel = new Label("図書バーコードを入力してください。");
 
   private final TextBox inputBox = new TextBox();
@@ -32,7 +36,7 @@ public class HenkyakuPanel extends Composite implements LibraryManager.AbstractT
     contentPanel.add(inputBox);
     contentPanel.add(table);
     contentPanel.setCellHeight(table, "100%");
-    inputBox.addStyleName("ime-disabled");
+    inputBox.addStyleName(Resources.INSTANCE.css().imeDisabled());
     inputBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
           final String barCode = ClientStringUtil.normalize(inputBox.getText());

@@ -342,6 +342,10 @@ public final class UserInfoDBPanel extends Composite implements LibraryManager.A
    * 利用者情報入力パネル
    */
   static private final class UserRecordInputPanel extends Composite {
+    static {
+      Resources.INSTANCE.css().ensureInjected();
+    }
+
     static private final String PLEASE_SELECT = "選択して下さい";
     private final ListBox typeSelector = new ListBox();
     private final FlexTable table = new FlexTable();
@@ -356,7 +360,7 @@ public final class UserInfoDBPanel extends Composite implements LibraryManager.A
       initWidget(table);
       table.getColumnFormatter().setStyleName(0, "myapp-TableHeader");      
       nameInputBox.setVisibleLength(60);
-      romanNameInputBox.addStyleName("ime-disabled");
+      romanNameInputBox.addStyleName(Resources.INSTANCE.css().imeDisabled());
       // Initialize typeSelector.
       typeSelector.addItem(PLEASE_SELECT);
       for (PersonRecord.Type type : PersonRecord.Type.values())

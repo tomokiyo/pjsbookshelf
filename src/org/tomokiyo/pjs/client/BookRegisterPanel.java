@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class BookRegisterPanel extends Composite implements LibraryManager.AbstractTabComponent {
 
   static private final String PLEASE_SELECT = "選択して下さい";
+  static {
+    Resources.INSTANCE.css().ensureInjected();
+  }
 
   // widgets
   private final Button cancelButton = new Button("Cancel",
@@ -228,7 +231,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
         }
       });
 
-    isbnInputBox.addStyleName("ime-disabled");
+    isbnInputBox.addStyleName(Resources.INSTANCE.css().imeDisabled());
     isbnInputBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
           final String isbn = isbnInputBox.getText();
