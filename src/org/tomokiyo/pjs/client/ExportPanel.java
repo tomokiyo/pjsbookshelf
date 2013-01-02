@@ -17,6 +17,7 @@ public class ExportPanel extends Composite implements LibraryManager.AbstractTab
 
   public ExportPanel() {
     final DockPanel mainPanel = new DockPanel();
+    mainPanel.setWidth("100%");
     initWidget(mainPanel);
     final VerticalPanel contentPanel = new VerticalPanel();
     mainPanel.add(contentPanel, DockPanel.CENTER);

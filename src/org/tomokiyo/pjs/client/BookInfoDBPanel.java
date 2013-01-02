@@ -46,16 +46,19 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
     // Create the model and the presenter objects.
     this.presenter = new Presenter(this);
     
-    final DockPanel dockPanel = new DockPanel();
-    initWidget(dockPanel);
+    final FlowPanel topPanel = new FlowPanel();
+    initWidget(topPanel);
     
     this.searchResultPanel = new SearchResultPanel(presenter);
-    searchBox.setWidth("100%");
+
+    searchBox.setWidth("400px");
     searchBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
           presenter.setQuery(searchBox.getText());
         }
       });
+    // Enable speech input.
+    searchBox.getElement().setAttribute("x-webkit-speech", "");
 
     final Button searchButton = new Button("検索", new ClickListener() {
         public void onClick(Widget sender) {
@@ -64,19 +67,13 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
       });
     DOM.setStyleAttribute(searchButton.getElement(), "whiteSpace", "nowrap");
 
-    final HorizontalPanel topHorizontalPanel = new HorizontalPanel();
-    topHorizontalPanel.setWidth("70%");
-    topHorizontalPanel.setSpacing(5);
+    final FlowPanel topHorizontalPanel = new FlowPanel();
     topHorizontalPanel.add(searchBox);
     topHorizontalPanel.add(searchButton);
-    topHorizontalPanel.setCellWidth(searchBox, "100%");
 
-    // Add everything to the dockPanel.
-    dockPanel.add(topHorizontalPanel, DockPanel.NORTH);
-    dockPanel.setCellHorizontalAlignment(topHorizontalPanel, HasHorizontalAlignment.ALIGN_CENTER);
-    dockPanel.setSpacing(2);
-    dockPanel.add(searchResultPanel, DockPanel.CENTER);
-    // dockPanel.setCellHeight(searchResultPanel, "100%");
+    // Add everything to the topPanel.
+    topPanel.add(topHorizontalPanel);
+    topPanel.add(searchResultPanel);
   }
 
   public void onTabSelected() {
@@ -306,7 +303,7 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
    */
   static private final class BookSearchResultPagingModel {
     // 各ページ毎の要素数。
-    static public final int NUM_ELEMENT_PER_PAGE = 2;
+    static public final int NUM_ELEMENT_PER_PAGE = 20;
 
     // The query.
     private String query;

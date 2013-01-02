@@ -24,6 +24,7 @@ public final class UserInfoDBPanel extends Composite implements LibraryManager.A
 
   public UserInfoDBPanel() {
     final DockPanel contentPanel = new DockPanel();
+    contentPanel.setWidth("100%");
     initWidget(contentPanel);
 
     contentPanel.add(searchPanel, DockPanel.NORTH);

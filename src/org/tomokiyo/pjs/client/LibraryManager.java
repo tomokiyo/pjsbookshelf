@@ -1,19 +1,28 @@
 package org.tomokiyo.pjs.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class LibraryManager implements EntryPoint {
-
+  
+  static {
+    Resources.INSTANCE.styleOverrides().ensureInjected();
+    Resources.INSTANCE.css().ensureInjected();
+  }
+  
   /**
    * Describe class <code>ProgressCursorManager</code> here.
    */
@@ -39,7 +48,7 @@ public class LibraryManager implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-    final TabPanel tabs = new TabPanel();
+    final TabLayoutPanel tabs = new TabLayoutPanel(2.5, Unit.EM);
     tabs.add(new KashidashiPanel(), "貸出");
     tabs.add(new HenkyakuPanel(), "返却");
     tabs.add(new UnreturnedBookListPanel(), "貸出状況照会");
@@ -48,23 +57,18 @@ public class LibraryManager implements EntryPoint {
     tabs.add(new BookRegisterPanel(), "図書登録");
     tabs.add(new ExportPanel(), "Export");
 
-    tabs.setWidth("100%");
-    tabs.setHeight("100%");
-    // tabs.getDeckPanel().setHeight("100%");
-    tabs.addTabListener(new TabListener() {
-        public boolean onBeforeTabSelected(SourcesTabEvents sender, int tabIndex) {
-          return true;
+    tabs.addSelectionHandler(new SelectionHandler<Integer>() {
+        @Override
+        public void onSelection(SelectionEvent<Integer> event) {
+          ((AbstractTabComponent)tabs.getWidget(event.getSelectedItem())).onTabSelected();
         } 
-        public void onTabSelected(SourcesTabEvents sender, int tabIndex) {
-          ((AbstractTabComponent)tabs.getWidget(tabIndex)).onTabSelected();
-        }
       });
 
     // Show the 'bar' tab initially.
     tabs.selectTab(0);
-
+    
     // 設定・ヘルプメニュー
-    RootPanel.get().add(tabs);
+    RootLayoutPanel.get().add(tabs);
   }
 
   /**

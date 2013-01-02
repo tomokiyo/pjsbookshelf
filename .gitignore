@@ -1,5 +1,6 @@
 CVS/
 *~
+.#*
 gwt-unitCache/
 LibraryManager.war
 

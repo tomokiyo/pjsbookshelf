@@ -27,10 +27,15 @@ public interface Resources extends ClientBundle {
 
   @Source("css/LibraryManager.css")
   public LibraryManagerCss css();
+
+  @CssResource.NotStrict
+  @Source("css/styleOverrides.css")
+  public CssResource styleOverrides();
   
   public interface LibraryManagerCss extends CssResource {
     /** ime-mode: disabled */
     String imeDisabled();
+
     String personInfo();
   }
 }

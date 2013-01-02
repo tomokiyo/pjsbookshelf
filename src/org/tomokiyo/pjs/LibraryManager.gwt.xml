@@ -6,11 +6,19 @@
   <inherits name='com.google.gwt.user.User'/>
   <inherits name='com.google.gwt.xml.XML'/> 
   <inherits name='com.google.gwt.http.HTTP'/>
+
   <!-- Inherit the default GWT style sheet.                       -->
   <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/> -->
   <inherits name='com.google.gwt.user.theme.standard.Standard'/>
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+
+  <!-- to avoid bug #3494, include resources and use copy of CSS -->
+  <!-- update: new way is to use CssResource.ensureInjected() -->
+  <!-- <inherits name='com.google.gwt.user.theme.standard.StandardResources'/> -->
+
+  <!-- debugging css preventing obfstication -->
+  <!-- <set-configuration-property name="CssResource.style" value="pretty"/> -->
 
   <!-- Other module inherits                                      -->
   <inherits name='com.allen_sauer.gwt.voices.gwt-voices'/>

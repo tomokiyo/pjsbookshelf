@@ -1,7 +1,7 @@
 package org.tomokiyo.pjs.client;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
@@ -127,7 +127,7 @@ public class KashidashiPanel extends Composite implements LibraryManager.Abstrac
 //     }
   // my API for tab member
   public void onTabSelected() {
-    DeferredCommand.addCommand(new Command() {
+    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
         public void execute() {
           inputBox.setFocus(true);
         }

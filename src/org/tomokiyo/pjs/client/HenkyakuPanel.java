@@ -1,6 +1,7 @@
 package org.tomokiyo.pjs.client;
 
 import com.google.gwt.user.client.ui.*;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -78,6 +79,10 @@ public class HenkyakuPanel extends Composite implements LibraryManager.AbstractT
   }
   // implements AbstractTabComponent
   public void onTabSelected() {
-    inputBox.setFocus(true);
+    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+        public void execute() {
+          inputBox.setFocus(true);
+        }
+      });
   }
 }

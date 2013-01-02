@@ -82,6 +82,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
   
   public BookRegisterPanel() {
     final DockPanel mainPanel = new DockPanel();
+    mainPanel.setWidth("100%");
     initWidget(mainPanel);
 
     // Configure topHorizontalPanel.
