@@ -126,11 +126,14 @@ public final class UserInfoDBPanel extends Composite implements LibraryManager.A
       DOM.setStyleAttribute(createFamilyButton.getElement(), "whiteSpace", "nowrap"); 
       headerPanel.add(createFamilyButton);
       headerPanel.setCellHorizontalAlignment(createFamilyButton, HasHorizontalAlignment.ALIGN_RIGHT);
+      inputBox.setWidth("400px");
       inputBox.addChangeListener(new ChangeListener() {
           public void onChange(Widget sender) {
             doSearch(inputBox.getText());
           }
         });
+      // Enable speech input.
+      inputBox.getElement().setAttribute("x-webkit-speech", "");
     }
     public void setFocus() {
       inputBox.setFocus(true);

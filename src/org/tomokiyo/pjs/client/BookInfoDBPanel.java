@@ -1,5 +1,6 @@
 package org.tomokiyo.pjs.client;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
@@ -51,6 +52,7 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
     
     this.searchResultPanel = new SearchResultPanel(presenter);
 
+    searchBox.getElement().getStyle().setMarginRight(10.0, Unit.PX);
     searchBox.setWidth("400px");
     searchBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
