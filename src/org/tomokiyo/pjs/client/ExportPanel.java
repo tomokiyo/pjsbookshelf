@@ -1,8 +1,8 @@
 package org.tomokiyo.pjs.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
@@ -74,14 +74,13 @@ public class ExportPanel extends Composite implements LibraryManager.AbstractTab
               dockPanel.setSpacing(5);
               dockPanel.add(textBox, DockPanel.CENTER);
               dockPanel.add(buttons, DockPanel.SOUTH);
-              DeferredCommand.addCommand(new Command() {
+              Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                   public void execute() { textBox.setFocus(true); }
                 });
               dialog.center();
               dialog.show();
             }
-          }
-          ));
+          }));
     
     contentPanel.add(new HTML("<a href="+GWT.getModuleBaseURL()+"download?type=rental-record>(本日分) 図書貸出用紙の印刷 [PDF]</a>"));
 

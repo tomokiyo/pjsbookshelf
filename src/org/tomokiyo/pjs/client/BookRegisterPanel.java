@@ -1,9 +1,9 @@
 package org.tomokiyo.pjs.client;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.*;
 
 import java.util.ArrayList;
 
@@ -191,7 +191,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
             dockPanel.setSpacing(5);
             dockPanel.add(textBox, DockPanel.CENTER);
             dockPanel.add(buttons, DockPanel.SOUTH);
-            DeferredCommand.addCommand(new Command() {
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
                 public void execute() { textBox.setFocus(true); }
               });
             dialog.center();

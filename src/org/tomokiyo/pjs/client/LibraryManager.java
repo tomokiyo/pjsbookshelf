@@ -1,13 +1,12 @@
 package org.tomokiyo.pjs.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
@@ -35,8 +34,8 @@ public class LibraryManager implements EntryPoint {
     }
     public void loadingEnd() {
       if (--count == 0) {
-        DeferredCommand.addCommand (new Command () {
-            public void execute () {
+        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
+            public void execute() {
               DOM.setStyleAttribute(RootPanel.getBodyElement(), "cursor", "");
             }
           });

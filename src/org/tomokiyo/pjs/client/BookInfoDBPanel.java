@@ -1,9 +1,8 @@
 package org.tomokiyo.pjs.client;
 
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.WindowResizeListener;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -79,7 +78,7 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
   }
 
   public void onTabSelected() {
-    DeferredCommand.addCommand(new Command() {
+    Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
         public void execute() {
           searchBox.setFocus(true);
           searchResultPanel.onWindowResized(Window.getClientWidth(), Window.getClientHeight());
