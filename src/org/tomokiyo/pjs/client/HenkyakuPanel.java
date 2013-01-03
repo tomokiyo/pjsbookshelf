@@ -4,12 +4,15 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import java.util.logging.Logger;
 /**
  * Describe class <code>HenkyakuPanel</code> here.
  *
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public class HenkyakuPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  private static Logger logger = Logger.getLogger(HenkyakuPanel.class.getName());  
+
   static {
     Resources.INSTANCE.css().ensureInjected();
   }
@@ -37,6 +40,7 @@ public class HenkyakuPanel extends Composite implements LibraryManager.AbstractT
     contentPanel.add(inputBox);
     contentPanel.add(table);
     contentPanel.setCellHeight(table, "100%");
+    contentPanel.setSpacing(5);
     inputBox.addStyleName(Resources.INSTANCE.css().imeDisabled());
     inputBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
@@ -56,7 +60,7 @@ public class HenkyakuPanel extends Composite implements LibraryManager.AbstractT
                     }
                     // 表示する。
                     SoundUtil.beepOK();
-                    System.out.println(record);
+                    logger.fine("Record: " + record.toString());
                     table.insertRow(new String[] {
                           UserInfoDBPanel.formatPersonId(record.getPersonID()),
                           record.getPersonType().getDisplayName(),

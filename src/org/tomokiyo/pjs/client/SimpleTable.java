@@ -8,6 +8,9 @@ import com.google.gwt.user.client.ui.*;
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public final class SimpleTable extends FlexTable {
+  static {
+    Resources.INSTANCE.css().ensureInjected();
+  }
   
   public SimpleTable(final String[] headers) {
     setStyleName("myapp-Table");

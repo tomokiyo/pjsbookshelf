@@ -9,3 +9,38 @@
   ime-mode: disabled;
   -ms-ime-mode: disabled;
 }
+
+/* My application settings */
+@external .myapp-*;
+.myapp-Table {
+  border-style: outset;
+  border-color: gray;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #666;
+  border-bottom: 1px solid #666;
+  border-top: 1px solid #fff;
+  border-width: 1px;
+  border-spacing: 4px;
+  /*  border-collapse:collapse; */
+  border-collapse: separate;
+}
+
+.myapp-TableHeader {
+  /* color:#cccc; */
+  /*  font-weight:bold; */
+}
+
+.myapp-TableRow {
+  background-color: white;
+}
+
+.myapp-TableRow-Bold {
+  font-weight:bold;
+}
+
+.myapp-TableRow-Even {
+  background-color:#f0f4f8;
+}
+
+.myapp-TableCell {
+}

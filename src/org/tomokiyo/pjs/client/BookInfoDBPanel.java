@@ -51,8 +51,6 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
     
     this.searchResultPanel = new SearchResultPanel(presenter);
 
-    searchBox.getElement().getStyle().setMarginRight(10.0, Unit.PX);
-    searchBox.setWidth("400px");
     searchBox.addChangeListener(new ChangeListener() {
         public void onChange(Widget sender) {
           presenter.setQuery(searchBox.getText());
@@ -68,9 +66,14 @@ public class BookInfoDBPanel extends Composite implements LibraryManager.Abstrac
       });
     DOM.setStyleAttribute(searchButton.getElement(), "whiteSpace", "nowrap");
 
+    final InlineLabel label = new InlineLabel("書名または図書番号: ");
     final FlowPanel topHorizontalPanel = new FlowPanel();
+    topHorizontalPanel.add(label);
     topHorizontalPanel.add(searchBox);
     topHorizontalPanel.add(searchButton);
+    label.getElement().getStyle().setMarginRight(10.0, Unit.PX);
+    searchBox.getElement().getStyle().setMarginRight(10.0, Unit.PX);
+    searchBox.setWidth("400px");
 
     // Add everything to the topPanel.
     topPanel.add(topHorizontalPanel);

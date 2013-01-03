@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 貸出処理パネル
@@ -15,6 +16,8 @@ import java.util.List;
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public class KashidashiPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  private static Logger logger = Logger.getLogger(KashidashiPanel.class.getName());  
+
   static {
     Resources.INSTANCE.css().ensureInjected();
   }
@@ -204,7 +207,7 @@ public class KashidashiPanel extends Composite implements LibraryManager.Abstrac
         reset();
       } else if (ClientStringUtil.isAllDigit(barCode)) {
         // this is a user ID
-        System.out.println("User ID: " + barCode);
+        logger.info("User ID: " + barCode);
         final int userId = Integer.parseInt(barCode);
         if (!personInfo.isEmpty() && !bookRecordList.isEmpty()) {
           SoundUtil.beepNG();
@@ -226,7 +229,7 @@ public class KashidashiPanel extends Composite implements LibraryManager.Abstrac
           });
       } else if (ClientStringUtil.isBookId(barCode)) {
         // this is a book ID.
-        System.out.println("Book ID: " + barCode);
+        logger.info("Book ID: " + barCode);
         RPCServices.getDBLookupService().lookupBookByID(barCode, new AsyncCallbackAdapter<BookRecord>() {
               public void onSuccess(final BookRecord record) {
                 if (record == null) {

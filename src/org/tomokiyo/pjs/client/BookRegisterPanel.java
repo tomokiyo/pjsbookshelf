@@ -1,11 +1,13 @@
 package org.tomokiyo.pjs.client;
 
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * 図書登録用のパネル。Amazon Web Serviceの検索もする。
@@ -13,6 +15,7 @@ import java.util.ArrayList;
  * @author  (tomokiyo@gmail.com)
  */
 public class BookRegisterPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  private static Logger logger = Logger.getLogger(BookRegisterPanel.class.getName());  
 
   static private final String PLEASE_SELECT = "選択して下さい";
   static {
@@ -86,13 +89,14 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
     initWidget(mainPanel);
 
     // Configure topHorizontalPanel.
-    final HorizontalPanel topHorizontalPanel = new HorizontalPanel();
-    topHorizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-    topHorizontalPanel.setWidth("100%");
+    final FlowPanel topHorizontalPanel = new FlowPanel();
     topHorizontalPanel.add(submitButton);
     topHorizontalPanel.add(cancelButton);
-    topHorizontalPanel.setCellWidth(submitButton, "100%");
+    topHorizontalPanel.getElement().getStyle().setProperty("textAlign", "right");
+    topHorizontalPanel.getElement().getStyle().setMarginBottom(5.0, Unit.PX);  
+    cancelButton.getElement().getStyle().setMarginLeft(5.0, Unit.PX);  
 
+ 
     // Configure the table.
     table.setWidth("100%");
     table.setBorderWidth(1);
@@ -109,7 +113,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
           if (idx == 0) return;
           // Warn: use of values() but okay for on-the-fly access.
           final String categoryName = Category.values()[idx-1].name();
-          System.out.println(categoryName);
+          logger.fine(categoryName);
           RPCServices.getDBLookupService().getNextBookId(categoryName, new AsyncCallback<String>() {
               public void onSuccess(String result) {
                 codeIdLabel.setText(result);
@@ -202,7 +206,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
 
     image.addLoadListener(new LoadListener() {
         public void onError(Widget sender) {
-          System.err.println("An error occurred while loading image: "+image.getUrl());
+          logger.warning("An error occurred while loading image: "+image.getUrl());
           image.setVisible(false);
         }
         public void onLoad(Widget sender) {
@@ -238,13 +242,13 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
           final String isbn = isbnInputBox.getText();
           if (isbn.length() == 0) return;
           if (titleInputBox.getText().length() == 0) {
-            System.out.println("Looking up isbn on Amazon: " + isbn);
+            logger.info("Looking up isbn on Amazon: " + isbn);
             RPCServices.getAmazonLookupService().lookupByISBN(isbn, new AsyncCallback<AmazonBookInfo>() {
                   public void onSuccess(AmazonBookInfo bookInfo) {
                     if (bookInfo == null) {
                       com.google.gwt.user.client.Window.alert(""+isbn);
                     } else {
-                      System.out.println(bookInfo.toString());
+                      logger.fine(bookInfo.toString());
                       titleInputBox.setText(bookInfo.getTitle());
                       kanaTitleInputBox.setText("");
                       guessKanaTitle(bookInfo.getTitle());

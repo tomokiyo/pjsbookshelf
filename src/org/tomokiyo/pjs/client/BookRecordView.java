@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * View of BookRecord augmented with BookRentalHistoryRecord information.
@@ -12,7 +13,7 @@ import java.util.*;
  * 書籍レコードの表示またはダブルクリックによる編集。また貸出中であればその旨表示する。
  */
 public final class BookRecordView extends Composite {
-  
+  private static Logger logger = Logger.getLogger(BookRecordView.class.getName());  
   // The presenter (or supervising controller).
   private final Presenter presenter;
   
@@ -41,7 +42,7 @@ public final class BookRecordView extends Composite {
     table.addDoubleClickListener(new DoubleClickableFlexTable.TableDoubleClickListener() {
         public void onCellDoubleClicked(final SourcesTableEvents sender,
                                         final int row, final int cell) {
-          // System.out.println("Double clicked Row "+row);
+          logger.fine("Double clicked Row "+row);
           final String fieldName = table.getText(row, 0);
           final String oldValue = table.getText(row, 1);
           if ("図書番号".equals(fieldName)) {

@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * 利用者情報の照会ならびに変更のためのパネル。
@@ -18,6 +19,11 @@ import java.util.*;
  * @author Takashi Tomokiyo (tomokiyo@gmail.com)
  */
 public final class UserInfoDBPanel extends Composite implements LibraryManager.AbstractTabComponent {
+  static {
+    Resources.INSTANCE.css().ensureInjected();
+  }
+
+  private static Logger logger = Logger.getLogger(UserInfoDBPanel.class.getName());
   
   private final SearchPanel searchPanel = new SearchPanel();
   private final SearchResultPanel searchResultPanel = new SearchResultPanel();
@@ -310,7 +316,7 @@ public final class UserInfoDBPanel extends Composite implements LibraryManager.A
                 public void visit(final PersonRecord newRecord) {
                   if (personRecord.getId() != newRecord.getId())
                     throw new IllegalStateException();
-                  System.out.println("New record: "+newRecord);
+                  logger.info("New record: " + newRecord);
                   final int index = findIndex(personRecord.getId());
                   members.set(index, personRecord);
                   setMemberView(index, newRecord, false);
