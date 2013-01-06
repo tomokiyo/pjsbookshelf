@@ -115,6 +115,7 @@
     <delete dir="war/WEB-INF/classes" failonerror="false" />
     <delete dir="war/WEB-INF/lib" failonerror="false" />
     <delete dir="war/WEB-INF/deploy" failonerror="false" />
+    <delete dir="war/librarymanager" failonerror="false" />
     <delete dir="gwt-unitCache" failonerror="false" />
     <delete file="derby.log"/>
     <delete>
