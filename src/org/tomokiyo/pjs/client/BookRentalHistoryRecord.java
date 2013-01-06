@@ -19,6 +19,9 @@ public final class BookRentalHistoryRecord implements IsSerializable {
   // 貸出者ID
   private int personID;
 
+  // 家族ID
+  private int familyID;
+
   // 貸出者分類
   private PersonRecord.Type personType;
   
@@ -38,16 +41,18 @@ public final class BookRentalHistoryRecord implements IsSerializable {
   public BookRentalHistoryRecord() {}
 
   public BookRentalHistoryRecord(String bookID,
-      String bookTitle,
-      int personID,
-      PersonRecord.Type personType,
-      String personName,
-      String personKanaName,
-      Date checkoutDate,
-      Date returnedDate) {
+                                 String bookTitle,
+                                 int personID,
+                                 int familyID,
+                                 PersonRecord.Type personType,
+                                 String personName,
+                                 String personKanaName,
+                                 Date checkoutDate,
+                                 Date returnedDate) {
     this.bookID = bookID;
     this.bookTitle = bookTitle;
     this.personID = personID;
+    this.familyID = familyID;
     this.personType = personType;
     this.personName = personName;
     this.personKanaName = personKanaName;
@@ -65,6 +70,10 @@ public final class BookRentalHistoryRecord implements IsSerializable {
 
   public int getPersonID() {
     return personID;
+  }
+
+  public int getFamilyID() {
+    return familyID;
   }
 
   public PersonRecord.Type getPersonType() {
@@ -92,6 +101,7 @@ public final class BookRentalHistoryRecord implements IsSerializable {
     sbuf.append("bookID: "+bookID);
     sbuf.append(", bookTitle: "+bookTitle);
     sbuf.append(", personID: "+personID);
+    sbuf.append(", familyID: "+familyID);
     sbuf.append(", personType: "+personType);
     sbuf.append(", personName: "+personName);
     sbuf.append(", personKanaName: "+personKanaName);

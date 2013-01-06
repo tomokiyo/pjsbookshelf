@@ -1,17 +1,5 @@
 package org.tomokiyo.pjs.server;
 
-import org.tomokiyo.pjs.client.BookRecord;
-import org.tomokiyo.pjs.client.PersonRecord;
-import org.tomokiyo.pjs.client.BookRentalHistoryRecord;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import java.util.*;
-
-import java.awt.Color;
-
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -23,13 +11,23 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.Barcode;
 import com.lowagie.text.pdf.Barcode128;
+import com.lowagie.text.pdf.Barcode;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.PdfPCell;
+
+import java.awt.Color;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.*;
+
+import org.tomokiyo.pjs.client.BookRecord;
+import org.tomokiyo.pjs.client.BookRentalHistoryRecord;
+import org.tomokiyo.pjs.client.PersonRecord;
 
 /**
  * Static utility class for printing PDF files using iText.
@@ -382,7 +380,7 @@ public class PrintUtil {
       list.add(record);
     }
 
-    // Sort person ID by personType then personKanaName.
+    // Sort person ID by personKanaName.
     final ArrayList<Integer> personIds = new ArrayList<Integer>(map.keySet());
     Collections.sort(personIds, new Comparator<Integer>() {
           public int compare(Integer a, Integer b) {
@@ -500,7 +498,7 @@ public class PrintUtil {
 
 
   /**
-   * 図書貸出用紙の印刷
+   * 図書貸出用紙の印刷 (本日分、夏休み前など用)
    */
   static public void printRentalRecords(final Iterable<BookRentalHistoryRecord> records, OutputStream out) throws DocumentException, IOException {
     // Group records by person and gather all person IDs.
@@ -512,16 +510,12 @@ public class PrintUtil {
       list.add(record);
     }
 
-    // Sort person ID by personType then personKanaName.
+    // Sort person ID by personKanaName.
     final ArrayList<Integer> personIds = new ArrayList<Integer>(map.keySet());
     Collections.sort(personIds, new Comparator<Integer>() {
           public int compare(Integer a, Integer b) {
             final BookRentalHistoryRecord r1 = map.get(a).get(0);
             final BookRentalHistoryRecord r2 = map.get(b).get(0);
-            final int t1 = r1.getPersonType().ordinal();
-            final int t2 = r2.getPersonType().ordinal();
-            if (t1 < t2) return -1;
-            if (t1 > t2) return 1;
             return r1.getPersonKanaName().compareTo(r2.getPersonKanaName());
           }
         });

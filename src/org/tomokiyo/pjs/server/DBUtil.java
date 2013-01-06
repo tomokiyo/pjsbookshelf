@@ -416,7 +416,7 @@ public class DBUtil {
    * 貸出し情報の検索。
    */
   static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate, String constraints, int offset, int max, Object... args) {
-    String sql = "SELECT checkout_date, returned_date, person_id, book_id, Person.type AS person_type, Person.name AS person_name, Person.katakana AS person_katakana, Book.title AS book_title" +
+    String sql = "SELECT checkout_date, returned_date, person_id, book_id, Person.type AS person_type, Person.name AS person_name, Person.katakana AS person_katakana, Person.family_id AS family_id, Book.title AS book_title" +
         " FROM CheckoutHistory" +
         " INNER JOIN Book ON book_id = Book.id" +
         " INNER JOIN Person ON person_id = Person.id" +
@@ -431,6 +431,7 @@ public class DBUtil {
           rs.getString("book_id"),
           rs.getString("book_title"),
           rs.getInt("person_id"),
+          rs.getInt("family_id"),
           PersonRecord.Type.lookupByDisplayName(rs.getString("person_type")),
           rs.getString("person_name"),
           rs.getString("person_katakana"),
