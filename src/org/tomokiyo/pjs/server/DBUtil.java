@@ -52,7 +52,6 @@ public class DBUtil {
    */
   static private final java.text.Collator JAPANESE_COLLATOR = java.text.Collator.getInstance(java.util.Locale.JAPAN);
 
-
   /**
    * Regex pattern for the book IDs (e.g. A028-27 => 'A', '028').
    */
@@ -367,55 +366,66 @@ public class DBUtil {
   /**
    * 未返却の本の情報のリストを得る。
    */
-  static public List<BookRentalHistoryRecord> getUnreturnedBookInfo(final SimpleJdbcTemplate jdbcTemplate, BookRentalHistoryRecord.Constraints constraints, int offset, int max) {
+  static public List<BookRentalHistoryRecord> getUnreturnedBookInfo(
+      final SimpleJdbcTemplate jdbcTemplate,
+      BookRentalHistoryRecord.Constraints constraints,
+      int offset,
+      int max) {
     switch (constraints) {
     case FOUR_WEEKS_AGO:
-      return getBookRentalHistoryRecords(
+      return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) <= ?",
         offset, max,
         DateUtil.nDaysAgo(new java.util.Date(), 28));
     case THREE_WEEKS_AGO:
-      return getBookRentalHistoryRecords(
+      return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) <= ?",
         offset, max,
         DateUtil.nDaysAgo(new java.util.Date(), 21));
     case TWO_WEEKS_AGO:
-      return getBookRentalHistoryRecords(
+      return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) <= ?",
         offset, max,
         DateUtil.nDaysAgo(new java.util.Date(), 14));
     case EXCEPT_TODAY:
-      return getBookRentalHistoryRecords(
+      return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) <= ?",
         offset, max,
         DateUtil.nDaysAgo(new java.util.Date(), 1));
     case ONLY_TODAY:
-      return getBookRentalHistoryRecords(
+      return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) = CURRENT_DATE"
         +" ORDER BY checkout_date DESC, person_id ASC",
         offset, max);
     case EVERYTHING:
-      return getBookRentalHistoryRecords(jdbcTemplate, "status = 1", offset, max);
+      return getBookRentalHistoryRecordsInRange(jdbcTemplate, "status = 1", offset, max);
     default: throw new IllegalStateException();
     }
   }
-
-  /**
-   * 貸出し情報の検索。(offsetとmaxは指定せず、すべて取得する)。
-   */
-  static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate, String constraints, Object... args) {
-    return getBookRentalHistoryRecords(jdbcTemplate, constraints, -1, -1, args);
+    
+    /**
+     * 貸出し情報の検索。(offsetとmaxは指定せず、すべて取得する)。
+     */
+    static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate,
+									       String constraints,
+									       Object... args) {
+    return getBookRentalHistoryRecordsInRange(jdbcTemplate, constraints, -1, -1, args);
   }
 
   /**
    * 貸出し情報の検索。
    */
-  static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate, String constraints, int offset, int max, Object... args) {
+  static public List<BookRentalHistoryRecord> getBookRentalHistoryRecordsInRange(
+       final SimpleJdbcTemplate jdbcTemplate,
+       String constraints,
+       int offset,
+       int max,
+       Object... args) {
     String sql = "SELECT checkout_date, returned_date, person_id, book_id, Person.type AS person_type, Person.name AS person_name, Person.katakana AS person_katakana, Person.family_id AS family_id, Book.title AS book_title" +
         " FROM CheckoutHistory" +
         " INNER JOIN Book ON book_id = Book.id" +
