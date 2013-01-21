@@ -408,12 +408,12 @@ public class DBUtil {
     }
   }
     
-    /**
-     * 貸出し情報の検索。(offsetとmaxは指定せず、すべて取得する)。
-     */
-    static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate,
-									       String constraints,
-									       Object... args) {
+  /**
+   * 貸出し情報の検索。(offsetとmaxは指定せず、すべて取得する)。
+   */
+  static public List<BookRentalHistoryRecord> getBookRentalHistoryRecords(final SimpleJdbcTemplate jdbcTemplate,
+                                                                          String constraints,
+                                                                          Object... args) {
     return getBookRentalHistoryRecordsInRange(jdbcTemplate, constraints, -1, -1, args);
   }
 
