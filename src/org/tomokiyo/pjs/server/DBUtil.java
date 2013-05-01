@@ -561,7 +561,6 @@ public class DBUtil {
                              msgout);
   }
 
-  // KOKO
   // 1002,保護者,山田 太郎,ヤマダ タロウ,Yamada Taro
   static protected void loadPersonRecordsFromCSV(DataSource dataSource, 
                                                  InputStream inputStream,
@@ -884,7 +883,6 @@ public class DBUtil {
    * @exception java.io.IOException if an error occurs
    */
   static public void getJSON(OutputStream out) throws java.io.IOException {
-    // KOKO
     final PrintWriter writer =
       new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
     final Gson gson = new Gson();

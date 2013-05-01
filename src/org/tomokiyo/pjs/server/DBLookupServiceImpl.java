@@ -300,8 +300,13 @@ public class DBLookupServiceImpl extends RemoteServiceServlet implements DBLooku
       accum.addParam("image_url", record.getImageURL());
     if (isChanged(orig.getRegisterDate(), record.getRegisterDate()))
       accum.addParam("register_date", record.getRegisterDate());
-    if (isChanged(orig.getDiscardDate(), record.getDiscardDate()))
+    if (isChanged(orig.getDiscardDate(), record.getDiscardDate())) {
+      // 廃棄したものが返却されていることを保証する。
+      if (record.getDiscardDate() != null) {
+        recordReturnEvent(record.getId());
+      }
       accum.addParam("discard_date", record.getDiscardDate());
+    }
     if (isChanged(orig.getComments(), record.getComments()))
       accum.addParam("comments", StringUtil.join(record.getComments()));
     if (isChanged(orig.getFlagsAsString(), record.getFlagsAsString()))
