@@ -24,7 +24,7 @@ public class YahooFuriganaService extends RemoteServiceServlet implements Kakasi
     if (text == null) return null;
     text = JapaneseUtil.normalize(text);
     if (text.isEmpty()) return "";
-    String url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid="+APP_ID+"&grade=1&sentence="+text;
+    String url = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana?appid="+APP_ID+"&grade=1&sentence=" + java.net.URLEncoder.encode(text);
     System.out.println("Query: "+url);
     final MyContentHandler handler = new MyContentHandler();
     try {

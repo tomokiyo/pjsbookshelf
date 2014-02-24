@@ -131,6 +131,7 @@ public class DBLookupServiceImpl extends RemoteServiceServlet implements DBLooku
       + " ORDER BY category,sortkey";
     if (offset > 0) sql += " OFFSET "+offset+" ROWS";
     if (max > 0) sql += " FETCH FIRST "+max+" ROWS ONLY";
+    System.out.println("Booksearch SQL: " + sql + " args: " + Arrays.toString(parser.getArguments()));
     return jdbcTemplate.query(sql, new DBUtil.BookRecordMapper(), parser.getArguments());
   }
 

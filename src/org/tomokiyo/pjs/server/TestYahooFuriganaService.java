@@ -32,6 +32,7 @@ public class TestYahooFuriganaService extends TestCase
    */
   public void testYahooFuriganaService() {
     final YahooFuriganaService converter = new YahooFuriganaService();
+    // assertEquals("グリトグラノエンソク (コドモノトモケッサクシュウ―グリトグラノエホン)", converter.toKatakana("ぐりとぐらのえんそく (こどものとも傑作集―ぐりとぐらの絵本)"));
     // assertEquals("NTTガ、ツウシンリョウキンヲ、ヤスクスル", converter.toKatakana("NTTが、通信料金を、安くする"));
     // assertEquals("じょん・ぐりしゃむ", converter.toHiragana("ジョン・グリシャム"));
   }
