@@ -58,6 +58,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
     G ("ビデオ"),
     H ("図鑑"),
     J ("朗読、読み聞かせCD、オーディオブック"),
+    K ("(橙色) 中高生お薦め本 (特に中高生にお薦めの本)"),
     P ("詩集"),
     S ("学校備品");
     private final String description;
