@@ -372,12 +372,12 @@ public class DBUtil {
       int offset,
       int max) {
     switch (constraints) {
-    case FOUR_WEEKS_AGO:
+    case FIVE_WEEKS_AGO:
       return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,
         "status = 1 AND DATE(checkout_date) <= ?",
         offset, max,
-        DateUtil.nDaysAgo(new java.util.Date(), 28));
+        DateUtil.nDaysAgo(new java.util.Date(), 35));
     case THREE_WEEKS_AGO:
       return getBookRentalHistoryRecordsInRange(
         jdbcTemplate,

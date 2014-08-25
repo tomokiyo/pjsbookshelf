@@ -115,7 +115,7 @@ public final class BookRentalHistoryRecord implements IsSerializable {
    * Constraints
    */
   public enum Constraints {
-    FOUR_WEEKS_AGO("4週間以上貸出中"),
+    FIVE_WEEKS_AGO("5週間以上貸出中"),
     THREE_WEEKS_AGO("3週間以上貸出中"),
     TWO_WEEKS_AGO  ("2週間以上貸出中"),
     EXCEPT_TODAY   ("本日貸出分を除く"),

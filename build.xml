@@ -4,7 +4,7 @@
   <property name="gwt.args" value="" />
 
   <!-- Configure path to GWT SDK -->
-  <property name="gwt.sdk" location="${user.home}/sdk/gwt-2.5.0" />
+  <property name="gwt.sdk" location="${user.home}/sdk/gwt-2.6.1" />
   <property name="db.dir" value="${basedir}/../PJS-DB"/>
 
   <path id="project.class.path">
