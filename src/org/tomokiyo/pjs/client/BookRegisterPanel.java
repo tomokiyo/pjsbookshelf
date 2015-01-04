@@ -61,6 +61,7 @@ public class BookRegisterPanel extends Composite implements LibraryManager.Abstr
     K ("(橙色) 中高生お薦め本 (特に中高生にお薦めの本)"),
     P ("詩集"),
     S ("学校備品");
+    V ("DVD"),
     private final String description;
     // constructor
     Category(String description) {
