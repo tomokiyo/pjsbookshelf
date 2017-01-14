@@ -159,10 +159,10 @@ public class DBUtil {
           "id VARCHAR(20) NOT NULL CONSTRAINT book_pk PRIMARY KEY," +
           "title VARCHAR(256) NOT NULL," +
           "kana_title VARCHAR(256) NOT NULL," +
-          "authors VARCHAR(64) NOT NULL," +
-          "publisher VARCHAR(64) NOT NULL," +
+          "authors VARCHAR(256) NOT NULL," +
+          "publisher VARCHAR(256) NOT NULL," +
           "isbn VARCHAR(64) NOT NULL," +
-          "image_url VARCHAR(64) NOT NULL," +
+          "image_url VARCHAR(256) NOT NULL," +
           "register_date DATE," +
           "discard_date DATE," +
           "comments VARCHAR(256) NOT NULL," +
@@ -290,10 +290,10 @@ public class DBUtil {
         bookRecord.getId(),
         bookRecord.getTitle(),
         bookRecord.getKatakanaTitle(),
-        truncate(bookRecord.getAuthors(), 64),
-        bookRecord.getPublisher(),
+        truncate(bookRecord.getAuthors(), 128),
+        truncate(bookRecord.getPublisher(), 64),
         bookRecord.getISBN(),
-        bookRecord.getImageURL(),
+        truncate(bookRecord.getImageURL(), 128),
         bookRecord.getRegisterDate(),
         bookRecord.getDiscardDate(),
         StringUtil.join(bookRecord.getComments()),
