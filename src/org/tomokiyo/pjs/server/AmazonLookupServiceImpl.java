@@ -40,6 +40,8 @@ public class AmazonLookupServiceImpl extends RemoteServiceServlet implements Ama
   static private final String AWS_VERSION = "2009-03-31";
   static private final String AWS_ACCESS_KEY_ID = ServerUtil.properties.getProperty("aws.subscrid");
   static private final String AWS_SECRET_KEY = ServerUtil.properties.getProperty("aws.secretkey");
+  static private final String AWS_ASSOCIATE_TAG = ServerUtil.properties.getProperty("aws.associatetag");
+  
   /**
    * The web service address (URL without "http://").
    */
@@ -89,10 +91,7 @@ public class AmazonLookupServiceImpl extends RemoteServiceServlet implements Ama
     final SortedMap<String, String> params = new TreeMap<String, String>();
     params.put("Service", "AWSECommerceService");
     params.put("AWSAccessKeyId", AWS_ACCESS_KEY_ID);
-    // According to "Product Advertising API 開発者ガイド
-    // (API Version 2010-09-01)".
-    // AssociateTag アソシエイトを一意に識別する半角英数字の文字列。この文字列は、Amazon が商品の販売に対する紹介料を加算するアソシエイトを識別するのに使われます。アソシエイトを識別せずにリクエストを実行しても、紹介料は支払われません。AssociateTag を CartCreate リクエストに指定した場合、 CartCreateで返される PurchaseURL に AssociateTag の値が自動的に指定されます。 アソシエイトタグを取得するには、http://affiliate.amazon.co.jpをご参照ください。 詳細については、AssociateTag パラメータをご参照ください。
-    params.put("AssociateTag", "CartCreate");
+    params.put("AssociateTag", AWS_ASSOCIATE_TAG);
     params.put("Version", AWS_VERSION);
     params.put("Timestamp", timestamp());
     params.put("Operation", "ItemLookup");
